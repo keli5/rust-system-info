@@ -26,10 +26,10 @@ fn cpuinfo(system: sysinfo::System) {
     println!("{} cores", system.get_processors().len());
 
     for cpu in system.get_processors() {
-        let cpunum = cpu.get_name().replace("cpu", "");
+        let cpunum = cpu.get_name();
         let mut usage = cpu.get_cpu_usage() * 100.;
         usage = usage.round() / 100.;
-        println!("Core #{}: {}% usage", cpunum, usage)
+        println!("{}: {}% usage", cpunum, usage)
     }
 }
 
