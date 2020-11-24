@@ -12,6 +12,9 @@ as of nov 23, it only does your disk/s <sup>[citation needed]</sup>
 
 ## Q/A
 
+### <X> doesn't work!
+open an issue
+
 ### Does it work on windows?
 lol, don't know
 
