@@ -8,3 +8,4 @@ edition = "2018"
 
 [dependencies]
 sysinfo = "0.15.3"
+text_io = "0.1.8"
