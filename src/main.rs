@@ -1,5 +1,6 @@
 use sysinfo::*;
 use read_line;
+use std::env::consts;
 mod utility;
 use utility::roundplaces;
 
@@ -7,24 +8,47 @@ fn main() {
     let mut system = sysinfo::System::new_all();
     system.refresh_all();
     let brc: String = read_line::read_line_prompt("Please press enter...");
-    println!("Info to show [cpu/disk/mem]:");
+    println!("Info to show [cpu/disk/mem/misc]:");
     let mut line: String = read_line::read_line();
 
     line = line.to_lowercase();
 
-    if line == "" {
-        line = String::from("cpu\n");
+    if line == "\n" || line == "\r\n" {
+        line = format!("{}{}", "cpu", brc);
     }
 
-    if line == format!("{}{}", "cpu", brc) {
-        cpuinfo(system)
-    } else if line == format!("{}{}", "disk", brc) {
-        diskinfo(system)
-    } else if line == format!("{}{}", "mem", brc) {
-        meminfo(system)
-    } else {
-        println!("Invalid choice recieved.")
+    match line {
+        format!("{}{}", "cpu", brc) => cpuinfo(system),
+        format!("{}{}", "disk", brc) => diskinfo(system),
+        format!("{}{}", "mem", brc) => meminfo(system),
+        format!("{}{}", "misc", brc) => miscinfo(),
     }
+
+fn miscinfo() {
+    let ostype = consts::OS;
+    let arch = consts::ARCH;
+    let mut sls = consts::DLL_EXTENSION;
+    let mut exee = consts::EXE_EXTENSION;
+    let family = consts::FAMILY;
+
+    if sls == "dll" {
+        sls = "DLL (Dynamic Link Library)"
+    } else if sls == "so" {
+        sls = "SO (Shared Object)"
+    }
+
+    if exee == "exe" {
+        exee = "EXE (Windows Executable)"
+    } else if exee == "" {
+        exee = "None"
+    }
+
+    println!("OS type: {}", ostype);
+    println!("--- Family: {}", family);
+    println!("--- Architecture: {}", arch);
+    println!("--- Library extension: {}", sls);
+    println!("--- Executable extension: {}", exee)
+
 }
 
 fn cpuinfo(system: sysinfo::System) {
