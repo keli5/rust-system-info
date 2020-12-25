@@ -164,9 +164,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "read_line"
+version = "0.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "18970053976d3a98aaf825aa731d6ef57993ec0182af951b9bcd3c7f5c7a0fc8"
+
+[[package]]
 name = "rust-system-info"
 version = "0.1.0"
 dependencies = [
+ "read_line",
  "sysinfo",
  "text_io",
 ]

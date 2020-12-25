@@ -1,25 +1,26 @@
 use sysinfo::*;
-use text_io::read;
+use read_line;
 mod utility;
 use utility::roundplaces;
 
 fn main() {
     let mut system = sysinfo::System::new_all();
     system.refresh_all();
+    let brc: String = read_line::read_line_prompt("Please press enter...");
     println!("Info to show [cpu/disk/mem]:");
-    let mut line: String = read!("{}\n");
+    let mut line: String = read_line::read_line();
 
     line = line.to_lowercase();
 
     if line == "" {
-        line = String::from("cpu");
+        line = String::from("cpu\n");
     }
 
-    if line == "cpu" {
+    if line == format!("{}{}", "cpu", brc) {
         cpuinfo(system)
-    } else if line == "disk" {
+    } else if line == format!("{}{}", "disk", brc) {
         diskinfo(system)
-    } else if line == "mem" {
+    } else if line == format!("{}{}", "mem", brc) {
         meminfo(system)
     } else {
         println!("Invalid choice recieved.")
