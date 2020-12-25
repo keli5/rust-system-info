@@ -21,7 +21,7 @@ fn main() {
         format!("{}{}", "cpu", brc) => cpuinfo(system),
         format!("{}{}", "disk", brc) => diskinfo(system),
         format!("{}{}", "mem", brc) => meminfo(system),
-        format!("{}{}", "misc", brc) => miscinfo(),
+        format!("{}{}", "misc", brc) => miscinfo()
     }
 
 fn miscinfo() {
@@ -98,4 +98,5 @@ fn meminfo(system: sysinfo::System) {
         println!("Total swap memory: {} GB", roundplaces(totalswap / 1e+6, 2));
         println!("Used swap memory: {} GB", roundplaces(usedswap / 1e+6, 2));
     }
+  }
 }
