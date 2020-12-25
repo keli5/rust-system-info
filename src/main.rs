@@ -7,22 +7,25 @@ use utility::roundplaces;
 fn main() {
     let mut system = sysinfo::System::new_all();
     system.refresh_all();
-    let brc: String = read_line::read_line_prompt("Please press enter...");
+    prompt(system)
+}
+
+fn prompt(system: sysinfo::System) {
     println!("Info to show [cpu/disk/mem/misc]:");
-    let mut line: String = read_line::read_line();
+    let mut line: String = read_line::read_line().to_lowercase();
+    line.retain(|c| c.is_alphabetic());  // strip line breaks and other strangeness
 
-    line = line.to_lowercase();
-
-    if line == "\n" || line == "\r\n" {
-        line = format!("{}{}", "cpu", brc);
-    }
-
-    match line {
-        format!("{}{}", "cpu", brc) => cpuinfo(system),
-        format!("{}{}", "disk", brc) => diskinfo(system),
-        format!("{}{}", "mem", brc) => meminfo(system),
-        format!("{}{}", "misc", brc) => miscinfo()
-    }
+    match line.as_str() {
+        "cpu" => cpuinfo(system),
+        "disk" => diskinfo(system),
+        "mem" => meminfo(system),
+        "misc" => miscinfo(),
+        _ => {
+            println!("Invalid choice!");
+            prompt(system);
+        }
+    };
+}
 
 fn miscinfo() {
     let ostype = consts::OS;
@@ -98,5 +101,4 @@ fn meminfo(system: sysinfo::System) {
         println!("Total swap memory: {} GB", roundplaces(totalswap / 1e+6, 2));
         println!("Used swap memory: {} GB", roundplaces(usedswap / 1e+6, 2));
     }
-  }
 }
