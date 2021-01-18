@@ -7,11 +7,12 @@ use utility::roundplaces;
 fn main() {
     let mut system = sysinfo::System::new_all();
     system.refresh_all();
-    prompt(system)
+    // let sys = &system;
+    prompt(&system);
 }
 
-fn prompt(system: sysinfo::System) {
-    println!("Info to show [cpu/disk/mem/misc]:");
+fn prompt(system: &sysinfo::System) {
+    println!("Info to show [cpu/disk/mem/misc/all]:");
     let mut line: String = read_line::read_line().to_lowercase();
     line.retain(|c| c.is_alphabetic());  // strip line breaks and other strangeness
 
@@ -20,6 +21,15 @@ fn prompt(system: sysinfo::System) {
         "disk" => diskinfo(system),
         "mem" => meminfo(system),
         "misc" => miscinfo(),
+        "all" => {
+            cpuinfo(system);
+            println!("\n");
+            diskinfo(system);
+            println!("\n");
+            meminfo(system);
+            println!("\n");
+            miscinfo();
+        },
         _ => {
             println!("Invalid choice!");
             prompt(system);
@@ -54,7 +64,7 @@ fn miscinfo() {
 
 }
 
-fn cpuinfo(system: sysinfo::System) {
+fn cpuinfo(system: &sysinfo::System) {
     println!("{} cores", system.get_processors().len());
 
     for cpu in system.get_processors() {
@@ -65,7 +75,7 @@ fn cpuinfo(system: sysinfo::System) {
     }
 }
 
-fn diskinfo(system: sysinfo::System) {
+fn diskinfo(system: &sysinfo::System) {
     for disk in system.get_disks() {
         let totalsize = disk.get_total_space() as f64;
         let freespace = disk.get_available_space() as f64;
@@ -88,7 +98,7 @@ fn diskinfo(system: sysinfo::System) {
     }
 }
 
-fn meminfo(system: sysinfo::System) {
+fn meminfo(system: &sysinfo::System) {
     let totalmemory = system.get_total_memory() as f64;
     let usedmemory = system.get_used_memory() as f64;
     let totalswap = system.get_total_swap() as f64;
