@@ -22,13 +22,7 @@ fn prompt(system: &sysinfo::System) {
         "mem" => meminfo(system),
         "misc" => miscinfo(),
         "all" => {
-            cpuinfo(system);
-            println!("\n");
-            diskinfo(system);
-            println!("\n");
-            meminfo(system);
-            println!("\n");
-            miscinfo();
+            println!("{}\n{}\n{}\n{}", cpuinfo(system), diskinfo(system), meminfo(system), miscinfo())
         },
         _ => {
             println!("Invalid choice!");
