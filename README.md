@@ -10,6 +10,8 @@ build it however you like with `cargo run` / `cargo build`
 as of nov 23, it only does your disk/s <sup>[citation needed]</sup>
 ![screenshot](https://i.imgur.com/srHloGK.png)
 
+*i need to take new screenshots, but.. no
+
 ## Q/A
 
 ### \<X> doesn't work!
