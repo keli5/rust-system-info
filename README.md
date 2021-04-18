@@ -26,6 +26,9 @@ probably
 ### Does it work on mac?
 maybe
 
+### Does it work on FreeBSD?
+i will repent for a lifetime of sin
+
 ### Does it work on Android?
 please get out of my house
 
