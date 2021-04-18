@@ -28,3 +28,6 @@ maybe
 
 ### Does it work on Android?
 please get out of my house
+
+### Does it work on iOS?
+:(
